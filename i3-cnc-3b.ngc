@@ -3,18 +3,20 @@ O1602 (JTF CNC3B);
 (T1 .500 END MILL)
 (T2 .125 Dia Drill)
 
+(Initial Setup)
 G20 G17 G40 G80 G90;
 G54;
 T1 M6;
 G43 H1;
-G0 X-1.0 Y 1.0;
 M3 S3000;
+
+(Start position)
+G0 X-1.0 Y-1.0;
 G0 Z0.1 M8;
 G1 Z-.25 F48.0;
-G41 Y0 D1;
-G1 X3.0;
-G1 Y-2.0;
-G1 X0.0;
+
+(Start cutter comp, mill radiuses on outside)
+G41 X0.0 D1;
 G1 Y-0.25;
 G2 X0.25 Y0 I0.25 J0.0;
 G1 X2.75;
@@ -30,19 +32,26 @@ G1 Y-1.5;
 G3 X2.5 Y-2.0 I0.0 J-.5;
 G1 Y-2.2;
 G40 Y-3.0;
+
+(relocate)
 G0 X4.0;
 G0 Y-1.0;
+
+(start cutter comp, mill SE corner)
 G41 X3.0 D1;
 G1 Y-1.25;
 G3 X2.25 Y-2.0 I0.0 J-.75;
 G1 Y-2.1;
 G40 Y-3.0;
+
+(end milling operation)
 G0 Z1.0 M9;
 M5;
 G0 G28 Z0.0;
 G0 G28 Y0.0
 M1;
 
+(start drill cycle)
 T2 M6;
 G43 H2;
 M3 S9000;

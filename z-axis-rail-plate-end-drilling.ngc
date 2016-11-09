@@ -1,0 +1,107 @@
+%
+O1612 (JTF Finish z-axis rail plate end);
+(use output of 1611 x2)
+(center work in vise, standing upright)
+(square carefully)
+
+(Z0.0 set on current rail bed)
+
+(T1 .500 END MILL)
+(T2 spot drill)
+(T3 .25 drill)
+#1 = 0.395; (rough x start)
+#2 = 2.605; (rough x stop)
+
+#3 = 0.375; (finish x start)
+#4 = 2.625; (finish x end)
+
+(Initial setup)
+G20 G17 G40 G80 G90;
+G54;
+T1 M6;
+G43 H1;
+M3 S3000;
+
+(move to start position)
+G0 X#1 Y1.0;
+G0 Z0.1 M8;
+G1 Z0.0 F20.0;
+
+G1 Y0.1;
+G1 X#2;
+G0 X#1;
+
+G1 Y-0.05;
+G1 X#2;
+G0 X#1;
+
+G1 Y-0.2;
+G1 X#2;
+G0 X#1;
+
+G1 Y-0.3;
+G1 X#2;
+G0 Z1.0;
+
+(finish pass)
+G0 X#3 Y.3;
+G0 Z0.0;
+G1 Z-0.05 F10.0;
+
+G1 Y0.05;
+G1 X#4;
+G1 Y0.30;
+G1 Y-0.6;
+G1 X#3;
+G1 Y0.3;
+G1 Y-0.25;
+G1 X#4;
+G0 Z1.0 M9;
+M5;
+
+(get center drill)
+G0 G28 Z0.0;
+G0 G28 Y0.0;
+T2 M6;
+G43 H2;
+M1;
+
+(pause for inspection)
+
+(Hole Locations)
+#10 = -0.25; (Y location)
+#11 = 0.712; (hole 1)
+#12 = 2.288; (hole 2)
+
+M3 S6000;
+G0 X#11 Y#10;
+G0 Z0.1 M8;
+G83 Z-0.15 F18.0 R0.1 Q0.05;
+G0 X#12;
+G80;
+G0 Z1.0 M9;
+M5;
+
+G0 G28 Z0.0;
+G0 G28 Y0.0;
+
+T3 M6;
+G43 H3;
+M1;
+
+(pause for inspection)
+M3 S6000;
+G0 X#11 Y#10;
+G0 Z0.1 M8;
+G83 Z-0.8 F18.0 R0.1 Q0.1;
+G0 X#12;
+G80;
+G0 Z1.0 M9;
+M5;
+
+G0 G28 Z0.0;
+G0 G28 Y0.0;
+M1;
+M30;
+%
+

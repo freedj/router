@@ -1,0 +1,43 @@
+%
+O1611 (JTF detail z-axis rail plate end);
+(Use output of 1610)
+(cut on X+ side of vise)
+(At least 0.75 stickout)
+(X0 on cut edge)
+
+(T1 .500 END MILL)
+#1 = -0.05;	(Rail bed)
+#2 = 0.35;	(Nose edge)
+#3 = 0.35 - 0.0625;	(nose start)
+
+
+(Initial setup)
+G20 G17 G40 G80 G90;
+G54;
+T1 M6;
+G43 H1;
+M3 S3000;
+
+(Move to start position)
+G0 X0.0 Y-1.0;
+G0 Z0.1 M8;
+G1 Y-0.9 F15.0;
+
+(Engage cutter comp)
+G41 Y0.0 D1;
+G1 X#3;
+G2 X#2 Y-0.0625 I0.0 J-0.0625;
+G1 Y-2.9375;
+G2 X#3 Y-3.0 I-0.0625 J0.0;
+G1 X0.0;
+G40 Y-4.0;
+
+G0 Z1.0 M9
+M5;
+
+G0 G28 Z0.0;
+G0 G28 Y0.0;
+%
+
+
+ 

@@ -1,0 +1,81 @@
+%
+O1610 (JTF dimension z-axis rail plate);
+(Use 3 x 0.5 x 5.0 bar stock)
+(This program dimensions the end of the bar stock from the center)
+(and does not machine the edges by the jaws)
+
+
+(T1 .500 END MILL)
+#1 = -0.75; 		(Y upper limit)
+#2 = -2.25;		(Y lower limit)
+
+(Initial Setup)
+G20 G17 G40 G80 G90;
+G54;
+T1 M6;
+G43 H1;
+M3 S3000;
+
+(Move to start position)
+G0 X-1.0 Y#2;
+G0 Z0.1 M8;
+
+G1 Z-0.6 F20.0;
+G1 X-0.2;
+G1 Y#1;
+G0 Y#2;
+
+G1 X-0.1;
+G1 Y#1;
+G0 Y#2;
+
+G1 X0.0;
+G1 Y#1;
+G0 Y#2;
+
+G1 X0.1;
+G1 Y#1;
+G0 Y#2;
+
+(End roughing at x0.35)
+G0 Z1.0;
+
+G0 X6.0 Y#1;
+G0 Z1.0;
+G1 Z-0.6;
+
+(Finish width=4.8 total)
+G1 X5.2;
+G1 Y#2;
+G0 Y#1;
+
+G1 X5.1;
+G1 Y#2;
+G0 Y#1;
+
+G1 X5.0;
+G1 Y#2;
+G0 Y#1;
+
+G1 X4.9;
+G1 Y#2;
+G0 Y#1;
+
+G1 X4.8;
+G1 Y#2;
+G0 Y#1;
+
+G1 X4.7;
+G1 Y#2;
+G0 Y#1;
+(end roughing at 4.7 -.25 = 4.45;
+
+
+(end program and prepare for next op)
+G0 Z1.0 M9;
+M5;
+G0 G28 Z0.0;
+G0 G28 Y0.0;
+M1;
+%
+

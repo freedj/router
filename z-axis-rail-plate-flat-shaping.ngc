@@ -1,0 +1,108 @@
+%
+M30;
+O1613 (JTF complete flat work on z-axis rail plate);
+(use output of 1612);
+(x0 = left rail bed);
+(y0 = fixed jaw);
+(z0 = part top);
+
+(T1 .500 END MILL);
+(T2 spot drill);
+(T4 .125 drill);
+(T5 8/32 tap);
+(T6 .25 END MILL);
+
+(initial setup);
+G20 G17 G40 G80 G90;
+G54;
+T2 M6;
+G43 H2;
+M3 S6000;
+
+G0 X1.53 Y-0.25;
+G0 Z1.0 M8;
+G1 Z0.1 F18.0;
+
+G83 Z-0.15 F18.0 R0.1 Q0.05;
+M97 P100 (center drill pattern);
+G80;
+
+G0 Z1.0 M9;
+M5;
+
+(drill these holes out);
+T4 M6;
+G43 H4;
+M3 S9000;
+G0 X1.53 Y-0.25;
+G0 Z1.0 M8;
+G1 Z0.1 F18.0;
+
+G83 Z-0.65 F18.0 R0.1 Q0.05;
+M97 P100 (drill all holes);
+G80;
+
+G0 Z1.0 M9;
+M5;
+
+G0 G28 Z0.0;
+G0 G28 Y0.0;
+T5 M6;
+G43 H5;
+
+M3 S960;
+G0 X1.53 Y0.25;
+G0 Z0.5 M8;
+
+G84 Z-.5625 R0.5 F0.03125;
+M97 P100 (tap all holes);
+G80;
+
+G0 Z1.0 M9;
+G0 G28 Z0.0;
+G0 G28 Y0.0;
+M1;
+
+T1 M6;
+G43 H1;
+M3 S3000;
+
+G0 X2.4 Y 1.0;
+G0 Z0.1 M8;
+G1 Z-0.125 F20.0;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+N100; (hole locations);
+G0 X1.53 Y-0.25;
+G0 X3.28 Y-0.25;
+G0 X1.53 Y-2.75;
+G0 X3.28 Y-2.75;
+
+G0 X0.65 Y-1.5;
+G0 X1.15 Y-1.5;
+G0 X1.65 Y-1.5;
+G0 X2.15 Y-1.5;
+G0 X2.65 Y-1.5;
+G0 X3.15 Y-1.5;
+G0 X3.65 Y-1.5;
+G0 X4.15 Y-1.5;
+M99;
+

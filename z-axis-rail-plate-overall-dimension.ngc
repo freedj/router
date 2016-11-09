@@ -74,8 +74,8 @@ G0 Y#1;
 (end program and prepare for next op)
 G0 Z1.0 M9;
 M5;
-G0 G28 Z0.0;
-G0 G28 Y0.0;
+G91 G28 Z0.0;
+G91 G28 Y0.0;
 M1;
 %
 

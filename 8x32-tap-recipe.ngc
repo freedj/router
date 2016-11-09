@@ -5,7 +5,7 @@ O1699 (JTF 8x32 tap recipe);
 G17 G20 G40 G80 G90;
 
 (T2 = spot drill);
-(T4 = .125 drill);
+(T4 = #25 or .1495 drill);
 (T5 = 8x32 roll form tap);
 
 G54;

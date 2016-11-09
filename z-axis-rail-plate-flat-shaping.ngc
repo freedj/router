@@ -8,7 +8,7 @@ O1613 (JTF complete flat work on z-axis rail plate);
 
 (T1 .500 END MILL);
 (T2 spot drill);
-(T4 .125 drill);
+(T4 #25 .1495 drill);
 (T5 8/32 tap);
 (T6 .25 END MILL);
 

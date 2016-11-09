@@ -1,0 +1,66 @@
+%
+O1699 (JTF 8x32 tap recipe);
+(This will tap one hole at X0, Y0, Z-.5625);
+
+G17 G20 G40 G80 G90;
+
+(T2 = spot drill);
+(T4 = .125 drill);
+(T5 = 8x32 roll form tap);
+
+G54;
+
+(center drill);
+T2 M6;
+G43 H2;
+M3 S6000;
+
+G0 X0.0 Y0.0;
+G0 Z0.1 M8;
+G83 Z-0.15 F18.0 R0.1 Q0.05 L0;
+
+G0 X0.0 Y0.0;
+
+G80;
+G0 Z1.0 M9;
+M5;
+
+(through drill);
+T4 M6;
+G43 H4;
+M3 S9000;
+
+G0 X0.0 Y0.0;
+G0 Z0.1 M8;
+G83 Z-0.6 F18.0 R0.1 Q0.05 L0;
+
+G0 X0.0 Y0.0;
+
+G80;
+G0 Z1.0 M9;
+M5;
+
+T5 M6;
+G43 H5;
+(lock spindle in high gear);
+S960 M42;
+M3;
+
+G0 X0.0 Y0.0;
+G0 Z0.1 M8;
+
+(tap it!);
+G84 Z-0.5625 R0.5 F0.03125 L0;
+
+G0 X0.0 Y0.0;
+
+G80;
+G0 Z1.0 M9;
+M5;
+
+G0 G28 Z0.0;
+G0 G28 Y0.0;
+M1;
+
+
+

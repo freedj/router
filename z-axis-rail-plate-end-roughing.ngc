@@ -19,9 +19,9 @@ G43 H1;
 M3 S3000;
 
 (Move to start position)
-G0 X0.0 Y-1.0;
+G0 X0.0 Y1.0;
 G0 Z0.1 M8;
-G1 Y-0.9 F15.0;
+G1 Y0.9 F15.0;
 
 (Engage cutter comp)
 G41 Y0.0 D1;

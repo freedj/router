@@ -1,5 +1,4 @@
 %
-M30;
 O1613 (JTF complete flat work on z-axis rail plate);
 (use output of 1612);
 (x0 = left rail bed);
@@ -65,31 +64,7 @@ M5;
 G0 G28 Z0.0;
 G0 G28 Y0.0;
 M1;
-
-T1 M6;
-G43 H1;
-M3 S3000;
-
-G0 X2.4 Y 1.0;
-G0 Z0.1 M8;
-G1 Z-0.125 F20.0;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+M30;
 
 
 (------------------------);
@@ -108,4 +83,5 @@ G0 X3.15 Y-1.5;
 G0 X3.65 Y-1.5;
 G0 X4.15 Y-1.5;
 M99;
+%
 

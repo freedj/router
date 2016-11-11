@@ -1,0 +1,9 @@
+Drills
+------
+.1495 	(#25)	5000rpm		10.0ipm		6061 Aluminum
+
+
+
+Mills
+----
+.500	

@@ -2,7 +2,7 @@
 O1632 (JTF Z-angle channel);
 
 (T1 .500 END MILL);
-(T2 .125 End mill);
+(T3 .125 End mill);
 
 (position in vice with extruded edges gripped);
 
@@ -69,8 +69,8 @@ M5;
 
 
 (Get small end mill)
-T2 M6;
-G43 H2;
+T3 M6;
+G43 H3;
 
 M3 S4000;
 

@@ -1,0 +1,41 @@
+%
+O1633 (JTF Z-channel corners);
+
+(Grip part with 1in sticking out X);
+(X0 = end with holes)
+
+(T1 .500 end mill)
+
+G17 G20 G40 G80 G90 G53;
+
+T1 M6;
+G43 H1;
+
+G0 X1.686 Y1.0;
+G0 Z0.5;
+M1;
+
+M3 S2000;
+M8;
+M1;
+
+G1 Z-0.6 F20.0;
+G42 Y0.0 D1;
+
+G1 X1.811;
+G2 X1.936 Y-0.125 J-0.125;
+G1 Y-1.497;
+G2 X1.811 Y-1.622 I-0.125;
+G1 X1.800;
+
+G40 Y-2.0;
+G0 Z1.0 M9;
+M5;
+G53 G49 Z0;
+G53 Y0;
+M1;
+M30;
+%
+
+
+

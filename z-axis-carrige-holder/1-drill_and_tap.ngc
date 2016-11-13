@@ -1,0 +1,76 @@
+%
+O1631 (JTF z-angle drill end);
+
+(T2 Center drill)
+(T4 .1495 drill)
+(T5 8/31 tap)
+
+G17 G20 G40 G80 G90 G54;
+
+(Get center drill)
+T2 M6;
+G43 H2;
+
+M3 S4000;
+
+G0 X0.186 Y-0.25;
+G0 Z.25 M8;
+M1;
+
+G0 Z0.1;
+
+G83 Z-0.15 F8.0 R0.1 Q0.05 L0;
+X0.186;
+X0.811;
+X1.436;
+G80;
+
+G0 Z1.0 M9;
+M5;
+
+(get Drill)
+T4 M6;
+G43 H4;
+
+M3 S3000;
+
+G0 X0.186 Y-0.25;
+G0 Z.25 M8;
+M1;
+
+G0 Z0.1;
+
+G83 Z-0.4 F8.0 R0.1 Q0.1 L0;
+X0.186;
+X0.811;
+X1.436;
+G80;
+
+G0 Z1.0 M9;
+M5;
+
+(Get tap)
+T5 M6;
+G43 H5;
+
+(lock spindle in high gear)
+S320 M42;
+M3;
+
+G0 X0.186 Y-0.25;
+G0 Z.25 M8;
+M1;
+
+G0 Z0.1;
+G84 Z-0.4 R0.1 F10.0 L0;
+X0.186;
+X0.811;
+X1.436;
+G80;
+
+G0 Z1.0 M9;
+G53 G49 Z0 M5;
+G53 Y0;
+M1;
+M30;
+%

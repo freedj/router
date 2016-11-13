@@ -1,0 +1,55 @@
+%
+O1601 (JTF Edge square);
+
+(This program will put a square edge on a part at X0.0)
+(the rest of the part should be at X+)
+(and assumes the part is within .25 of square to begin with)
+(T1 .500 END MILL)
+
+G17 G20 G40 G90 G90;
+G54;
+
+#1 = 0.5 (Y-Max);
+#2 = -3.5 (Y-Min);
+
+T1 M6;
+G54 H1;
+
+M3 S3000;
+
+G0 X-1.0 Y#2;
+G0 Z0.5 M8;
+
+G1 Z-0.75 F13.0;
+
+G1 X-0.5;
+G1 Y#1;
+G0 Y#2;
+
+G1 X-0.4;
+G1 Y#1;
+G0 Y#2;
+
+G1 X-.03;
+G1 Y#1;
+G0 Y#2;
+
+G1 X-.255;
+G1 Y#1;
+G0 Y#2;
+
+G1 X-.25 F9.0;
+G1 Y#1;
+G0 Y#2;
+
+G0 Z2.0 M9;
+M5;
+
+G53 G49 Z0;
+M1;
+M30;
+
+%
+
+
+

@@ -1,0 +1,145 @@
+%
+O1611 (JTF 1_Y-Axis Backplane roughing);
+(Start with a block 3.0 x 7.25 x 0.5)
+(X0 on X- side of vise sandwiched by 123 blocks)
+
+
+G17 G20 G40 G80 G90 G54;
+(T1 .500 END MILL);
+(T2 center drill);
+(T3 .125 end mill);
+
+(T5 .1495 drill);
+(T6 8/32 tap);
+(T8 .315 drill);
+
+(spot drill all hole locations)
+T2 M6;
+G43 H2;
+
+M3 S4000;
+
+G0 X0.282 Y-2.433 M8;
+G0 Z1.0;
+M1;
+
+
+G0 Z0.1;
+G83 Z-0.1 F8.0 R0.1 Q0.1 L0;
+
+X0.282 Y-2.433;
+
+X1.25 Y-1.436;
+X1.25 Y-0.811;
+X1.25 Y-0.186;
+
+X2.042 Y-1.436;
+X2.542 Y-1.436;
+X3.042 Y-1.436;
+X3.542 Y-1.436;
+X4.042 Y-1.436;
+X4.542 Y-1.436;
+X5.042 Y-1.436;
+
+X6.084 Y-0.186;
+X6.084 Y-0.811;
+X6.084 Y-1.436;
+
+X6.801 Y-2.433;
+
+G80;
+
+G0 Z1.0;
+
+(clean up drilling cycle)
+M9;
+G53 G49 Z0 M5;
+G53 Y0;
+M1;
+
+
+
+
+(through drill all holes)
+
+T5 M6;
+G43 H5;
+
+M3 S3000;
+
+G0 X0.282 Y-2.433 M8;
+G0 Z1.0;
+M1;
+
+
+G0 Z0.1;
+G83 Z-0.7 F8.0 R0.1 Q0.1 L0;
+
+X0.282 Y-2.433;
+
+X1.25 Y-1.436;
+X1.25 Y-0.811;
+X1.25 Y-0.186;
+
+X2.042 Y-1.436;
+X2.542 Y-1.436;
+X3.042 Y-1.436;
+X3.542 Y-1.436;
+X4.042 Y-1.436;
+X4.542 Y-1.436;
+X5.042 Y-1.436;
+
+X6.084 Y-0.186;
+X6.084 Y-0.811;
+X6.084 Y-1.436;
+
+X6.801 Y-2.433;
+
+G80;
+
+G0 Z1.0;
+
+(clean up drilling cycle)
+M9;
+G53 G49 Z0 M5;
+G53 Y0;
+M1;
+
+
+
+(Tap 8-32 holes)
+
+T6 M6;
+G43 H6;
+
+S320 M42;
+M3;
+
+G0 X2.042 Y-1.436 M8;
+G0 Z1.0;
+M1;
+
+
+G0 Z0.1;
+G84 Z-0.57 R0.1 F10.0 L0;
+
+X2.042 Y-1.436;
+X2.542 Y-1.436;
+X3.042 Y-1.436;
+X3.542 Y-1.436;
+X4.042 Y-1.436;
+X4.542 Y-1.436;
+X5.042 Y-1.436;
+
+G80;
+
+G0 Z1.0;
+
+(clean up tapping cycle)
+M9;
+G53 G49 Z0 M5;
+G53 Y0;
+M1;
+
+M30;
+

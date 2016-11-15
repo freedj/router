@@ -1,0 +1,112 @@
+%
+O1612 (JTF Y-AXIS Back)
+(START with result of O1611);
+(position face down with rounded corners twards you)
+(X0 at left side of part, Y0 on rear jaw edge, Z0 on part top)
+
+(T1 .500 END MILL)
+G17 G20 G40 G80 G90 G54;
+T1 M6;
+G43 H1;
+
+M3 S3000;
+G0 X3.3 Y-3.75;
+G0 Z1.0 M8;
+G1 Z-0.25 F25.0;
+
+G1 Y-3.75
+G1 X-0.1;
+G0 X3.05;
+
+G1 Y-3.6;
+G1 X-0.1;
+G0 X3.05;
+
+G1 Y-3.45;
+G1 X-0.1;
+G0 X3.05;
+
+G1 Y-3.3;
+G1 X-0.1;
+G0 X3.05;
+
+G1 Y-3.15;
+G1 X-0.1;
+G0 X3.05;
+
+G1 Y-3.0;
+G1 X-0.1;
+G0 X3.05;
+
+G1 Y-2.85;
+G1 X-0.1;
+G0 X3.05;
+
+G1 Y-2.7;
+G1 X-0.1;
+G0 X3.05;
+
+G1 Y-2.55;
+G1 X-0.1;
+G0 X3.05;
+
+G1 Y-2.4;
+G1 X-0.1;
+G0 X3.05;
+
+G1 Y-2.25;
+G1 X-0.1;
+G0 X3.05;
+
+G1 Y-2.1;
+G1 X-0.1;
+G0 X3.05;
+
+G1 Y-1.95;
+G1 X-0.1;
+G0 X3.05;
+
+G1 Y-1.8;
+G1 X-0.1;
+G0 X3.05;
+
+G1 Y-1.65;
+G1 X-0.1;
+G0 X3.05;
+
+G1 Y-1.5
+G1 X-0.1;
+G0 X3.05;
+
+G1 Y-1.35;
+G1 X-0.1;
+G0 X3.05;
+
+G1 Y-1.2;
+G1 X-0.1;
+G0 X3.05;
+
+G1 Y-1.05;
+G1 X-0.1;
+G0 X3.05;
+
+G1 Y-0.9;
+G1 X-0.1;
+G0 X3.05;
+
+G1 Y-0.80;
+G1 X-0.1;
+G0 X3.05;
+
+(finishing pass)
+G1 Y-0.80 F10.0;
+G1 X-0.1;
+
+G0 Z1.0 M9;
+M5;
+
+G53 G49 Z0;
+G53 Y0;
+M1;
+M30;
+%

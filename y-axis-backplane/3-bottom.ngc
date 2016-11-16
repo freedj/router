@@ -1,0 +1,111 @@
+
+%
+O1612 (JTF Y-Axis Backplane bottom);
+(Start with output of O1611)
+(X0 on X- side of vise sandwiched by 123 blocks)
+
+
+G17 G20 G40 G80 G90 G54;
+(T1 .500 END MILL);
+
+(T3 .125 end mill);
+
+(T5 .1495 drill);
+
+
+T1 M6;
+G43 H1;
+M3 S3000;
+
+G0 X3.042 Y0.3 M8;
+M1;
+
+(Rough in)
+G0 Z1.0;
+G1 Z-0.310;
+G1 Y0.0;
+G1 X4.042;
+
+G0 Z0.1;
+G0 Y-0.8;
+G1 Z-0.310;
+G1 Y-0.5;
+G1 X4.042;
+
+(cut middle)
+G0 Z0.1;
+G0 X3.3;
+G1 Z-0.310;
+G1 X3.75 Z-0.315;
+G1 X3.3;
+G0 Z0.1;
+
+(cut radiuses);
+G0 X2.5 Y0.75;
+G1 Z-0.315;
+G42 Y0.0 D1;
+G1 X2.792;
+G2 X2.792 Y-0.500 I0.250;
+G40 X2.5;
+G0 Z1.0;
+
+G0 X5.0 Y-1.0;
+G1 Z-0.315;
+G42 Y-0.5 D1;
+G1 X4.292;
+G2 X4.292 Y0.0 J0.25;
+G1 X4.50;
+G40 Y1.0;
+G0 Z1.0;
+
+(clean up milling)
+M9;
+G53 G49 Z0 M5;
+G53 Y0;
+M1;
+
+
+(center drill)
+T5 M6;
+G43 H6;
+M3 S3000;
+
+G0 X3.542 Y-0.25 M8;
+M1;
+
+G0 Z0.1;
+G83 Z-0.7 F8.0 R0.1 Q0.1 L0;
+X3.542 Y-0.25;
+G80;
+G0 Z1.0;
+M9;
+G53 G49 Z0 M5;
+
+(enlarge hole)
+T3 M6;
+G43 H3;
+
+M3 S4000;
+G0 X3.543 Y-0.25 M8;
+M1;
+
+G0 Z0.1;
+G1 Z0.0 F18.0;
+G12 D3 F16.0 I0.065 K0.09 Q0.005 Z-0.48;
+G0 Z1.0;
+
+(clean up);
+M9;
+G53 G49 Z0 M5;
+G53 Y0;
+
+M1;
+T10 M6 (get probe);
+M30;
+%
+
+
+
+
+
+

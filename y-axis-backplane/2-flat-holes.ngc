@@ -1,5 +1,5 @@
 %
-O1611 (JTF 1_Y-Axis Backplane roughing);
+O1611 (JTF 2_Y-Axis Backplane holes);
 (Start with a block 3.0 x 7.25 x 0.5)
 (X0 on X- side of vise sandwiched by 123 blocks)
 
@@ -153,26 +153,31 @@ M1;
 
 G0 Z1.0;
 G0 X0.282 Y-2.433;
+G1 Z0.0;
 G12 D3 F16.0 I0.065 K0.158 Q0.005 Z-0.5;
 G0 Z1.0;
 
 G0 Z1.0;
 G0 X6.801 Y-2.433;
+G1 Z0.0;
 G12 D3 F16.0 I0.065 K0.158 Q0.005 Z-0.5;
 G0 Z1.0;
 
 G0 Z1.0;
 G0 X1.25 Y-0.186;
+G1 Z0.0;
 G12 D3 F16.0 I0.065 K0.09 Q0.005 Z-0.5;
 G0 Z1.0;
 
 G0 Z1.0;
 G0 X1.25 Y-0.811;
+G1 Z0.0;
 G12 D3 F16.0 I0.065 K0.09 Q0.005 Z-0.5;
 G0 Z1.0;
 
 G0 Z1.0;
 G0 X1.25 Y-1.436;
+G1 Z0.0;
 G12 D3 F16.0 I0.065 K0.09 Q0.005 Z-0.5;
 G0 Z1.0;
 
@@ -201,6 +206,7 @@ G53 G49 Z0 M5;
 G53 Y0;
 
 M1;
+T10 M6 (get probe);
 M30;
 
 (local subprogram for slotting)

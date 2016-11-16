@@ -11,7 +11,6 @@ G17 G20 G40 G80 G90 G54;
 
 (T5 .1495 drill);
 (T6 8/32 tap);
-(T8 .315 drill);
 
 (spot drill all hole locations)
 T2 M6;
@@ -141,5 +140,80 @@ G53 G49 Z0 M5;
 G53 Y0;
 M1;
 
+(enlarge holes as needed)
+T3 M6;
+G43 H6;
+M3 S4000;
+
+G0 X0.282 Y-2.433 M8;
+G0 Z1.0;
+G1 Z0.95 F18.0;
+M1;
+
+
+G0 Z1.0;
+G0 X0.282 Y-2.433;
+G12 D3 F16.0 I0.065 K0.158 Q0.005 Z-0.5;
+G0 Z1.0;
+
+G0 Z1.0;
+G0 X6.801 Y-2.433;
+G12 D3 F16.0 I0.065 K0.158 Q0.005 Z-0.5;
+G0 Z1.0;
+
+G0 Z1.0;
+G0 X1.25 Y-0.186;
+G12 D3 F16.0 I0.065 K0.09 Q0.005 Z-0.5;
+G0 Z1.0;
+
+G0 Z1.0;
+G0 X1.25 Y-0.811;
+G12 D3 F16.0 I0.065 K0.09 Q0.005 Z-0.5;
+G0 Z1.0;
+
+G0 Z1.0;
+G0 X1.25 Y-1.436;
+G12 D3 F16.0 I0.065 K0.09 Q0.005 Z-0.5;
+G0 Z1.0;
+
+(slot holes)
+G0 Z1.0;
+G0 X6.084 Y-0.186;
+G1 Z-0.0;
+M97 P1000 L5 (Run subprgram 5x);
+G0 Z1.0;
+
+G0 Z1.0;
+G0 X6.084 Y-0.811;
+G1 Z-0.0;
+M97 P1000 L5 (run subpgram 5x);
+G0 Z1.0;
+
+G0 Z1.0;
+G0 X6.084 Y-1.436;
+G1 Z-0.0;
+M97 P1000 L5 (run subpgram 5x);
+G0 Z1.0;
+
+(clean up)
+M9;
+G53 G49 Z0 M5;
+G53 Y0;
+
+M1;
 M30;
 
+(local subprogram for slotting)
+N1000;
+G91;
+G1 Z-0.1;
+G1 Y-0.028;
+G1 X-0.088;
+G1 Y0.056;
+G1 X0.176;
+G1 Y-0.056;
+G1 X-0.088;
+G1 Y0.028;
+G90;
+M99;
+%

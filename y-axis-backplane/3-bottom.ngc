@@ -5,7 +5,7 @@ O1612 (JTF Y-Axis Backplane bottom);
 (X0 on X- side of vise sandwiched by 123 blocks)
 
 
-G17 G20 G40 G80 G90 G54;
+G17 G20 G40 G80 G90 G55;
 (T1 .500 END MILL);
 
 (T3 .125 end mill);
@@ -22,19 +22,19 @@ M1;
 
 (Rough in)
 G0 Z1.0;
-G1 Z-0.310;
-G1 Y0.0;
+G1 Z-0.310 F8.0;
+G1 Y0.1;
 G1 X4.042;
 
 G0 Z0.1;
 G0 Y-0.8;
 G1 Z-0.310;
-G1 Y-0.5;
-G1 X4.042;
+G1 Y-0.6;
+G1 X3.042;
 
 (cut middle)
 G0 Z0.1;
-G0 X3.3;
+G0 X3.3 Y-0.25;
 G1 Z-0.310;
 G1 X3.75 Z-0.315;
 G1 X3.3;
@@ -43,10 +43,11 @@ G0 Z0.1;
 (cut radiuses);
 G0 X2.5 Y0.75;
 G1 Z-0.315;
-G42 Y0.0 D1;
+G41 Y0.0 D1;
 G1 X2.792;
-G2 X2.792 Y-0.500 I0.250;
-G40 X2.5;
+G2 X2.792 Y-0.500 J-0.250;
+G1 X2.5;
+G40 X2.0;
 G0 Z1.0;
 
 G0 X5.0 Y-1.0;

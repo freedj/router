@@ -4,7 +4,7 @@ O1610 (JTF 1_Y-Axis Backplane roughing);
 (X0 on X- side of vise sandwiched by 123 blocks)
 
 
-G17 G20 G40 G80 G90 G54;
+G17 G20 G40 G80 G90 G55;
 (T1 .500 END MILL);
 (T2 center drill);
 (T3 .125 end mill);
@@ -91,11 +91,11 @@ G0 Z1.0;
 G0 X0.83 Y-2.05;
 G1 Z-0.6;
 
-G42 X0.564 D1;
+G41 X0.564 D1;
 G1 Y-2.433;
 G2 X0.0 Y-2.433 I-0.282;
 G1 Y-0.282;
-G2 X0.282 Y0.0 J0.282;
+G2 X0.282 Y0.0 I0.282;
 G1 X0.3;
 G40 Y1.0;
 G0 Z1.0;
@@ -105,7 +105,7 @@ G0 Z1.0;
 G0 X6.80 Y0.5;
 G1 Z-0.6;
 
-G42 Y0.0 D1;
+G41 Y0.0 D1;
 G1 X6.802;
 G2 X7.084 Y-0.282 J-0.282;
 G1 Y-2.433;

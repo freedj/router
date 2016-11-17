@@ -4,7 +4,7 @@ O1611 (JTF 2_Y-Axis Backplane holes);
 (X0 on X- side of vise sandwiched by 123 blocks)
 
 
-G17 G20 G40 G80 G90 G54;
+G17 G20 G40 G80 G90 G55;
 (T1 .500 END MILL);
 (T2 center drill);
 (T3 .125 end mill);

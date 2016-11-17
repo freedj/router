@@ -7,9 +7,8 @@ O1613 (JTF complete flat work on z-axis rail plate);
 
 (T1 .500 END MILL);
 (T2 spot drill);
-(T4 #25 .1495 drill);
-(T5 8/32 tap);
-(T6 .25 END MILL);
+(T5 #25 .1495 drill);
+(T6 8/32 tap);
 
 (initial setup);
 G20 G17 G40 G80 G90;
@@ -22,7 +21,7 @@ G0 X1.53 Y-0.25;
 G0 Z1.0 M8;
 G1 Z0.1 F18.0;
 
-G83 Z-0.15 F18.0 R0.1 Q0.05;
+G83 Z-0.08 F8.0 R0.1 Q0.05 L0;
 M97 P100 (center drill pattern);
 G80;
 
@@ -30,30 +29,30 @@ G0 Z1.0 M9;
 M5;
 
 (drill these holes out);
-T4 M6;
-G43 H4;
-M3 S9000;
+T5 M6;
+G43 H5;
+M3 S4000;
 G0 X1.53 Y-0.25;
 G0 Z1.0 M8;
-G1 Z0.1 F18.0;
+G1 Z0.1 F10.0;
 
-G83 Z-0.65 F18.0 R0.1 Q0.05;
+G83 Z-0.65 F8.0 R0.1 Q0.05 L0;
 M97 P100 (drill all holes);
 G80;
 
 G0 Z2.0 M9;
 M5;
 
-T5 M6;
-G43 H5;
+T6 M6;
+G43 H6;
 
 (force spindle to high gear)
-S960 M42;
+S320 M42;
 M3;
 G0 X1.53 Y0.25;
 G0 Z0.5 M8;
 
-G84 Z-.5625 R0.5 F0.03125;
+G84 Z-0.5625 R0.1 F10.0 L0;
 M97 P100 (tap all holes);
 G80;
 
@@ -65,19 +64,19 @@ M30;
 
 (------------------------);
 N100; (hole locations);
-X1.53 Y-0.25;
-X3.28 Y-0.25;
-X1.53 Y-2.75;
-X3.28 Y-2.75;
+X1.125 Y-0.25;
+X2.875 Y-0.25;
+X1.125 Y-2.75;
+X2.875 Y-2.75;
 
-X0.65 Y-1.5;
-X1.15 Y-1.5;
-X1.65 Y-1.5;
-X2.15 Y-1.5;
-X2.65 Y-1.5;
-X3.15 Y-1.5;
-X3.65 Y-1.5;
-X4.15 Y-1.5;
+X0.25 Y-1.5;
+X0.75 Y-1.5;
+X1.25 Y-1.5;
+X1.75 Y-1.5;
+X2.25 Y-1.5;
+X2.75 Y-1.5;
+X3.25 Y-1.5;
+X3.75 Y-1.5;
 M99;
 %
 

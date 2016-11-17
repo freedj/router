@@ -1,0 +1,3 @@
+cut a z-axis rail plate on 11/16.  My initial feeds on the .5" cutter were too high and I was getting some chattering.  In the hogging operation i should do one more x-move in the roughing stage to clear the final ramp in.
+
+I also didn't get my offset correct on the hogging operation and so my cutouts are offset from each other.  In the future it would be better to make that happen in one step, rather than rotate the part.

@@ -1,0 +1,52 @@
+
+%
+O1611 (JTF - Z-axis nut mounting holes);
+(Start with output of O1612)
+(put in vise with long edges in jaws and .5 pointint up)
+
+G17 G20 G40 G80 G90;
+G55;
+
+(T4 .250 END MILL);
+(T3 0.017 drill);
+
+T3 M6;
+G43 H3;
+
+G0 X0.2 Y-0.25 M9;
+G0 Z0.1;
+
+M3 S6000;
+G83 Z-0.800 F9.0 R0.1 Q0.05 L0;
+X0.2 Y-0.25;
+X1.7 Y-0.25;
+G80;
+
+G0 Z1.0;
+
+
+T4 M6;
+G43 H4;
+
+M3 S4000;
+
+G0 X0.2 Y-0.25;
+G0 Z1.0 M9;
+G1 Z0.0 F10.0;
+
+G12 D4 F10.0 I0.15 L4 Z-0.1;
+G0 Z1.0;
+
+G0 X1.7 Y-0.25;
+G0 Z0.1;
+G1 Z0.0;
+G12 D4 F10.0 I0.15 L4 Z-0.1;
+G0 Z1.0;
+
+
+(clean up)
+M5;
+G53 G49 Z0;
+G53 Y0;
+M30;
+

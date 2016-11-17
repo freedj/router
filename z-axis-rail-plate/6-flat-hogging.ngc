@@ -1,12 +1,12 @@
 %
-O1615 (JTF cut spindle channel);
+O1615 (JTF flat hogging);
 (use output of 1614);
 (x0 = left rail bed);
 (y0 = fixed jaw);
 (z0 = part top);
 
 (T1 .500 END MILL);
-(T2 .25 END MILL);
+(T4 .25 END MILL);
 
 G20 G17 G40 G80 G90;
 G54;
@@ -68,15 +68,15 @@ M5;
 
 M1;
 
-T2 M6;
-G43 H2;
+T4 M6;
+G43 H4;
 M3 S4000;
 
-G0 X1.0 Y2.0;
+G0 X1.0 Y-2.0;
 G0 Z1.0 M8;
 G1 Z-0.52 F10.0;
 
-G42 Y-1.75 D2;
+G41 Y-1.75 D4;
 G1 X0.25;
 G1 Y-2.75;
 G1 X0.875;

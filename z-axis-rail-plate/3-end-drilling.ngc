@@ -8,7 +8,7 @@ O1612 (JTF Finish z-axis rail plate end);
 
 (T1 .500 END MILL)
 (T2 spot drill)
-(T3 .25 drill)
+(T4 .25 drill)
 #1 = 0.395; (rough x start)
 #2 = 2.605; (rough x stop)
 
@@ -20,12 +20,12 @@ G20 G17 G40 G80 G90;
 G54;
 T1 M6;
 G43 H1;
-M3 S3000;
+M3 S1500;
 
 (move to start position)
 G0 X#1 Y1.0;
 G0 Z0.1 M8;
-G1 Z0.0 F20.0;
+G1 Z0.0 F10.0;
 
 G1 Y0.1;
 G1 X#2;
@@ -80,15 +80,15 @@ G80;
 G0 Z1.0 M9;
 M5;
 
-T3 M6;
-G43 H3;
+T4 M6;
+G43 H4;
 M1;
 
 (pause for inspection)
-M3 S6000;
+M3 S3000;
 G0 X#11 Y#10;
 G0 Z0.1 M8;
-G83 Z-0.8 F18.0 R0.1 Q0.1;
+G83 Z-0.8 F9.0 R0.1 Q0.02;
 X#12;
 G80;
 G0 Z2.0 M9;

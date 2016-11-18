@@ -1,0 +1,8 @@
+2016-11-18 
+The workholding on the flatwork.ngc was very tricky.  I ended up miss-cutting two copies before i got it to work on the third.  Exiting cutter comp is difficult to do in close quarters and i believe it is worth spending some more time to figure out how to do it properly.  In the end, i ended up routing the cutter back out to the edge and exiting there.  My strategy of holding the part with 123 blocks did work well, and got me the clearance I needed around the vise, but it was scary.
+
+I also had issues re-locating the part for 2-flat holes and miss-cut the 2nd copy.  My x-offset was off by 0.1 of an inch and nothing lined up.  I need to work out a better way to confirm that everything is where it needs to be until i get better at offsets.
+
+I had no trouble doing offsets from the table height today.  I have been using the brass shim stock, and would like to switch back to the probe.  I also need to get a better calculator (not my phone) and use a logbook more frequently.  Possibly even make a worksheet to track g54 offsets throughout the part.  I also switched to G55 for my work offsets since I am consistently setting a height offset now.
+
+I only was able to run the first two steps last night.  I lost over an hour to the cutter comp issue.

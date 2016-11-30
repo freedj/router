@@ -1,0 +1,231 @@
+%
+O1611 (JTF Axis bridge - flatwork);
+
+(Stock prep)
+(Start with 2.50 x 5.75 x 0.5 stock)
+(grip on extruded edges with at least .380 above the jaws)
+
+(T1 .500 END MILL)
+(T2 Center Drill)
+(T3 .125 END MILL)
+
+(T5 .1495 drill)
+(T6 8-32 tap)
+
+(T12 fly cutter F14.0 S600)
+
+(boilerplate)
+G17 G20 G40 G80 G90;
+
+(Use G55 Work Offsets)
+G55;
+
+(Get fly cutter)
+T12 M6;
+G43 H12;
+
+G53 G49 Z0;
+G0 X7.0 Y-2.0;
+M3 S600;
+M8;
+G0 Z0.1;
+G1 Z-0.002 F14.0;
+G1 X-1.5;
+G1 Y-0.75;
+G1 X7.0;
+G0 Z1.0 M9;
+
+M5;
+G53 G49 Z0;
+
+
+(center drill)
+T2 M6;
+G43 H2;
+
+M3 S4000;
+G0 X0.313 Y-2.116;
+
+G0 Z0.1 M8;
+
+
+G83 Z-0.080 F12.0 R0.1 Q0.1 L0;
+M97 P500;
+M97 P600;
+G80;
+G0 Z1.0 M9;
+
+M5;
+G53 G49 Z0;
+
+
+(pilot hole)
+T5 M6;
+G43 H6;
+M3 S3000;
+G0 X0.313 Y-2.116 M8;
+G0 Z0.1;
+
+G83 Z-0.6 F8.0 R0.1 Q0.05 L0;
+M97 P500;
+M97 P600;
+G80;
+M5;
+G0 Z1.0 M9;
+G53 G49 Z0;
+
+(tap holes)
+T6 M6;
+G43 H6;
+S320 M42;
+M3;
+G0 X2.317 Y-0.75 M8;
+G0 Z0.1;
+
+G84 Z-0.55 R0.1 F10.0 L0;
+M97 P600;
+G80;
+G0 Z1.0 M9;
+M5;
+
+G53 G49 Z0;
+
+(enlarge holes)
+T3 M6;
+G43 H3;
+
+M3 S4000;
+G0 X0.313 Y-20116;
+G0 Z1.1 M8;
+G1 Z1.0 F18.0;
+
+( - bearing holes 0.165)
+G0 Z1.0
+G0 X0.313 Y-20116;
+G1 Z0.0;
+G12 D3 F16.0 I0.065 K0.0825 Q0.005 Z-0.45;
+G0 Z1.0;
+
+G0 Z1.0
+G0 X5.321 Y-20116;
+G1 Z0.0;
+G12 D3 F16.0 I0.065 K0.0825 Q0.005 Z-0.45;
+G0 Z1.0;
+
+( - backplane holes 0.1695)
+G0 Z1.0
+G0 X1.317 Y-0.25;
+G1 Z0.0;
+G12 D3 F16.0 I0.065 K0.0847 Q0.005 Z-0.45;
+G0 Z1.0;
+
+G0 Z1.0
+G0 X1.817 Y-0.25;
+G1 Z0.0;
+G12 D3 F16.0 I0.065 K0.0847 Q0.005 Z-0.45;
+G0 Z1.0;
+
+G0 Z1.0
+G0 X2.317 Y-0.25;
+G1 Z0.0;
+G12 D3 F16.0 I0.065 K0.0847 Q0.005 Z-0.45;
+G0 Z1.0;
+
+G0 Z1.0
+G0 X2.817 Y-0.25;
+G1 Z0.0;
+G12 D3 F16.0 I0.065 K0.0847 Q0.005 Z-0.45;
+G0 Z1.0;
+
+G0 Z1.0
+G0 X3.317 Y-0.25;
+G1 Z0.0;
+G12 D3 F16.0 I0.065 K0.0847 Q0.005 Z-0.45;
+G0 Z1.0;
+
+G0 Z1.0
+G0 X3.817 Y-0.25;
+G1 Z0.0;
+G12 D3 F16.0 I0.065 K0.0847 Q0.005 Z-0.45;
+G0 Z1.0;
+
+G0 Z1.0
+G0 X4.317 Y-0.25;
+G1 Z0.0;
+G12 D3 F16.0 I0.065 K0.0847 Q0.005 Z-0.45;
+G0 Z1.0;
+
+G0 Z1.1 M9;
+M5;
+G53 G49 Z0;
+
+(Profile edge)
+T1 M6;
+G43 H6;
+M3 S3056;
+
+G0 X0.0 Y0.5;
+G0 Z0.1 M9;
+G1 Z0.0 F30.5;
+(run profiler 3 times)
+G97 P700 L3;
+G0 Z1.0 M9;
+M5;
+G53 G49 Z0;
+G53 Y0;
+M30;
+
+
+
+
+
+
+N500;
+(Enlarged Hole locations)
+X0.313 Y-2.116;
+X1.317 Y-0.25;
+X1.817 Y-0.25;
+X2.317 Y-0.25;
+X2.817 Y-0.25;
+X3.317 Y-0.25;
+X3.817 Y-0.25;
+X4.317 Y-0.25;
+X5.321 Y-2.116;
+M99;
+
+
+N600;
+(Tapped Holes)
+X2.317 Y-0.75;
+X2.817 Y-0.75;
+X3.317 Y-0.75;
+M99;
+
+
+N700;
+(cut profile)
+G91;
+Z-0.125
+G90;
+G0 X0.0 Y0.5;
+G42 Y0.0 D1;
+
+G1 X4.317 Y0.0;
+G2 X4.533 Y-0.125 J-0.25;
+G1 X5.592 Y-1.96;
+G2 X5.321 Y-2.429 I-0.271 J-0.156;
+G1 X0.313 Y-2.429;
+G2 X0.042 Y-1.96 J0.313;
+G1 X1.1 Y-0.125;
+G2 X1.317 Y0.0 I0.217 J-0.125;
+G1 X2.0 Y0.0;
+G40 Y1.0;
+M99;
+
+
+
+%
+
+
+
+

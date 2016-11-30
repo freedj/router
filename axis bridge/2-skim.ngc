@@ -1,0 +1,46 @@
+%
+O1612 (JTF Axis bridge skim)
+
+(locate part with uncut side up, about at x0)
+
+(T12 2.5" Face Mill F14.0 S600)
+
+
+G17 G20 G40 G80 G90;
+
+(Use G55 Work ofsets)
+G55;
+
+(Get face mill);
+T12 M6;
+G43 H12;
+
+G0 X7.0 Y-2.0;
+M3 S600;
+
+G0 Z1.0 M8;
+G1 Z0.0 F14.0;
+(Run fly cutter 5x to take a total of 0.125 off the top)
+M97 P500 L5;
+G0 Z1.0 M9;
+M5;
+
+G53 G49 Z0;
+G53 Y0;
+
+M30;
+
+
+
+N500;
+(face the part, taking .025 per pass)
+G91;
+G1 Z-0.025;
+G90;
+G1 X-1.5;
+G1 Y-0.75;
+G1 X7.0
+G1 Y-2.0;
+M99;
+
+%

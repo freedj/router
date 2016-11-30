@@ -1,0 +1,50 @@
+%
+O1612 (JTF Stepper Spacer cutoff);
+(Start with output of 1611)
+(Z0 at 1.00 above bottom of part - touch off on 123 block)
+(Drill center 3 holes with a .1695 drill in drill press)
+
+(T1 .500 END MILL)
+
+(-- Safe Start --)
+G17 G20 G40 G80 G90;
+G55;
+G53 G49 Z0;
+
+(-- Skim part to known size --)
+T1 M6;
+G43 H1;
+
+M3 S2000;
+G0 X-1.0 Y0.25 M8;
+G0 Z1.0;
+
+G1 Z0.0;
+
+G1 Y0.125;
+G1 X3.5;
+G0 X-0.5;
+
+G1 Y0.0;
+G1 X3.5;
+G0 X-0.5;
+
+G1 Y-0.125;
+G1 X3.5;
+G0 X-0.5;
+
+G1 Y-0.250;
+G1 X3.5;
+G0 X-0.5;
+
+G1 Y-0.375;
+G1 X3.5;
+G0 X-0.5;
+
+G0 Z1.0 M9;
+M5;
+
+G53 G49 Z0;
+G53 Y0;
+M30;
+%

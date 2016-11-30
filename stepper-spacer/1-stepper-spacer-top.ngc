@@ -1,0 +1,197 @@
+%
+O1611 (JTF Stepper Spacer top);
+(Start with 2.500+ x 1.125+ x 0.500+)
+(mount in vise with at least 1" above vise surface)
+(X0 at left side of part, extending to at least X2.50)
+(Z0 at 1.125 above vise)
+
+(T1 .500 END MILL)
+(T2 Spot drill)
+(T3 .125 end mill)
+
+(T5 .1495 Drill)
+(T6 8-32 tap)
+
+(T12 2.5" face mill F14.0 S600)
+
+(-- Safe Start --)
+G17 G20 G40 G80 G90;
+G55;
+G53 G49 Z0;
+
+(-- Skim part to known size --)
+T1 M6;
+G43 H1;
+
+M3 S2000;
+G0 X-1.0 Y0.25 M8;
+G0 Z1.0;
+
+G1 Z0.0;
+
+G1 Y0.125;
+G1 X3.5;
+G0 X-0.5;
+
+G1 Y0.0;
+G1 X3.5;
+G0 X-0.5;
+
+G1 Y-0.125;
+G1 X3.5;
+G0 X-0.5;
+
+G1 Y-0.250;
+G1 X3.5;
+G0 X-0.5;
+
+G1 Y-0.375;
+G1 X3.5;
+G0 X-0.5;
+
+G0 Z1.0;
+
+(-- Shape profile --)
+G0 Z1.0;
+G0 Y1.0 X-0.5;
+G0 Z0.0;
+
+M97 P800 L5;
+
+G0 Z1.0 M9;
+M5;
+
+G53 G49 Z0;
+
+
+
+
+(-- Spot Drill --)
+
+T2 M6;
+G43 H2;
+
+G0 X0.25 Y-0.25 M8;
+M3 S4000;
+G0 Z1.0;
+
+G83 Z-0.080 F8.0 R0.1 Q0.05 L0;
+M97 P500;
+M97 P600;
+G80;
+
+G0 Z1.0 M9;
+M5;
+
+G53 G49 Z0;
+
+
+(-- Through Drill --)
+T5 M6;
+G43 H6;
+
+G0 X0.25 Y-0.25 M8;
+M3 S3000;
+G0 Z1.0;
+G83 Z-1.125 F8.0 R0.1 Q0.05 L0;
+M97 P500;
+M97 P600;
+G80;
+
+G0 Z1.0 M9;
+M5;
+
+G53 G49 Z0;
+
+(-- Tap Holes --)
+T6 M6;
+G43 H6;
+S320 M42;
+M3;
+
+G0 X0.25 Y-0.25;
+G0 Z1.0;
+
+G84 Z-0.57 R0.1 F10 L0;
+M97 P500;
+G80;
+
+G0 Z1.0 M9;
+M5;
+
+G53 G49 Z0;
+
+
+(-- counter bore --)
+T3 M6;
+G43 H3;
+
+M3 S4000;
+
+G0 X0.75 Y-0.25;
+G0 Z1.0 M8;
+G1 Z0.5 F16.0;
+
+G0 X0.75 Y-0.25;
+M97 P700;
+
+G0 X1.25 Y-0.25;
+M97 P700;
+
+G0 X1.75 Y-0.25;
+M97 P700;
+
+G0 Z1.0 M9;
+M5;
+
+G53 G49 Z0;
+
+
+
+
+
+(-- Safe Shutdown --)
+G53 G49 Z0;
+G53 Y0;
+M30;
+
+
+( -=- Sub Programs -=-)
+
+
+
+N500 (-- Tap hole locations --);
+X0.250 Y-0.250;
+X2.250 Y-0.250;
+M99;
+
+N600 (-- Counter Bore hole locations);
+X0.750 Y-0.250;
+X1.250 Y-0.250;
+X1.750 Y-0.250;
+M99;
+
+
+N700 (-- perform coutnerbore 0.500 deep --);
+G1 Z0.0;
+G12 D3 F16.0 I0.065 K0.135 Q0.005 Z-0.5;
+G0 Z1.0;
+M99;
+
+N800 (-- shape outer profile --);
+G91;
+Z-0.2;
+G90;
+
+G42 Y0 D1;
+G1 X2.25;
+G2 Y-0.5 J-0.25;
+G1 X0.25;
+G2 Y0.0 J0.25;
+G1 X1.0;
+G40 Y1.0;
+
+G1 X-0.5 Y1.0;
+M99;
+
+%

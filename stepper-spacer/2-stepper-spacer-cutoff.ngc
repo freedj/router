@@ -9,7 +9,7 @@ O1612 (JTF Stepper Spacer cutoff);
 (-- Safe Start --)
 G17 G20 G40 G80 G90;
 G55;
-G53 G49 Z0;
+
 
 (-- Skim part to known size --)
 T1 M6;

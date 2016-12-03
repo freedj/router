@@ -17,17 +17,17 @@ O1611 (JTF Stepper Spacer top);
 (-- Safe Start --)
 G17 G20 G40 G80 G90;
 G55;
-G53 G49 Z0;
+
 
 (-- Skim part to known size --)
 T1 M6;
 G43 H1;
 
-M3 S2000;
+M3 S3000;
 G0 X-1.0 Y0.25 M8;
 G0 Z1.0;
 
-G1 Z0.0;
+G1 Z0.0 F30.5;
 
 G1 Y0.125;
 G1 X3.5;
@@ -88,7 +88,7 @@ G53 G49 Z0;
 
 (-- Through Drill --)
 T5 M6;
-G43 H6;
+G43 H5;
 
 G0 X0.25 Y-0.25 M8;
 M3 S3000;
@@ -112,7 +112,7 @@ M3;
 G0 X0.25 Y-0.25;
 G0 Z1.0;
 
-G84 Z-0.57 R0.1 F10 L0;
+G84 Z-0.57 R0.1 F10.0 L0;
 M97 P500;
 G80;
 
@@ -183,7 +183,7 @@ G91;
 Z-0.2;
 G90;
 
-G42 Y0 D1;
+G41 Y0 D1;
 G1 X2.25;
 G2 Y-0.5 J-0.25;
 G1 X0.25;

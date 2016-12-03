@@ -19,9 +19,9 @@ G0 X7.0 Y-2.0;
 M3 S600;
 
 G0 Z1.0 M8;
-G1 Z-0.0125 F14.0;
+G1 Z-0.16 F14.0;
 (Run fly cutter 5x to take a total of 0.150 off the top)
-M97 P500 L1;
+M97 P500;
 G0 Z1.0 M9;
 M5;
 
@@ -34,9 +34,6 @@ M30;
 
 N500;
 (face the part, taking .025 per pass)
-G91;
-G1 Z-0.025;
-G90;
 G1 X-1.5;
 G1 Y-0.75;
 G1 X7.0

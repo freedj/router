@@ -1,0 +1,55 @@
+%
+O1602 (JTF Trim To thickness);
+(Removes material from part down to an even thickness all the way across)
+(Starting from near the opeartor and moving back to the back jaw of the vise)
+(removes full thickness in one pass using a .500 end mill)
+
+(Define Rear left corner);
+#1 = 0.0 (X);
+#2 = 0.0 (Y);
+
+(Define front right corner);
+#3 = 3.0 (X);
+#4 = -2.0 (Y);
+
+(Define cut depth)
+#5 = 0.0 (Z);
+
+(Define cut parameters)
+#6 = 0.1 (stepover);
+#7 = 3600 (Spindle speed);
+#8 = 35.0 (feed);
+
+(T1 .500 END MILL);
+
+
+(set starting y);
+#9 = #4;
+
+G17 G20 G40 G80 G90;
+G55;
+
+T1 M6;
+G43 H1;
+
+
+M3 S#7 (Start spindle);
+G0 X#3 Y#9 M8 (go to starting xy, start coolant);
+G0 Z#5+1.0 (get close in z);
+G1 Z#5 F#8 (Feed to to cut depth);
+
+N10 (Start main program loop);
+G1 X#1;
+G0 X#3;
+#9 = #9 - #6;
+G1 Y#9;
+if [#9 GT #2]  GOTO10;
+
+G0 Z#5 + 1.0 M9;
+M5;
+G53 G49 Z0;
+G53 Y0;
+M30;
+%
+
+

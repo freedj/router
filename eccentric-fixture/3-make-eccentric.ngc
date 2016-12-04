@@ -1,0 +1,100 @@
+%
+O1603 (JTF - make eccentric spacer);
+
+(T1 .500 End MIll)
+(T2 spot drill)
+(T4 #4 drill 5.3mm)
+
+G17 G20 G40 G80 G90;
+G55;
+
+T1 M6;
+G43 H6;
+
+M3 S3000;
+G0 X0.0 Y0.0 M8
+G0 Z1.0;
+
+(flatten bottom)
+G1 Z0.01 F32.0;
+M97 P500;
+G0 Z1.0;
+
+(flatten top)
+G56;
+G0 X0.0 Y0.0 M8;
+G0 Z1.0;
+G1 Z0.32;
+M97 P500;
+G0 Z1.0 M9;
+G53 G49 Z0;
+
+(spot and countersink)
+T2 M6;
+G43 H2;
+M3 S4500;
+
+G55;
+G0 X1.0 Y0.0 M8;
+G0 Z0.1;
+G73 F8.0 Q0.03 R0.1 Z-0.12;
+G80;
+G0 Z1.0;
+
+G56;
+G0 X1.0 Y0.0 M8;
+G0 Z0.43;
+G73 F8.0 Q0.03 R0.43 Z0.21;
+G80;
+G0 Z1.0 M9;
+
+G53 G49 Z0;
+
+(Drill Hole)
+T4 M6;
+G43 H4;
+M3 S4500;
+G55;
+G0 X1.0 Y0.0 M8;
+G0 Z0.1;
+G73 F8.0 Q0.05 R0.1 Z-0.75;
+G80;
+G0 Z1.0;
+M9;
+G53 G49 Z0;
+
+(form eccentric)
+T1 M6;
+G43 H1;
+G56;
+
+M3 S3000;
+G0 X0.4 Y0.0 M8;
+G0 Z1.0;
+G1 Z0.01 F32.0;
+
+G42 X0.742;
+G3 X0.742 I0.276;
+M30;
+
+
+
+N500 (Flatten hex);
+G1 X0.70 Y-0.75;
+G1 X0.75 Y-0.25;
+G1 X0.80 Y-0.75;
+G1 X0.85 Y-0.25;
+G1 X0.90 Y-0.75;
+G1 X0.95 Y-0.25;
+G1 X1.00 Y-0.75;
+G1 X1.05 Y-0.25;
+G1 X1.10 Y-0.75;
+G1 X1.15 Y-0.25;
+G1 X1.20 Y-0.75;
+G1 X1.25 Y-0.25;
+G1 X1.30 Y-0.75;
+G1 X1.35 Y-0.25;
+G1 X1.40 Y-0.75;
+G1 X1.45 Y-0.25;
+M99;
+%

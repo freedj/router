@@ -1,5 +1,5 @@
 %
-(O1612 (JTF Stepper Plate Profile);
+O1612 (JTF Stepper Plate Profile);
 (Use Output of 1611);
 (do not move from 1611);
 (keep offsets);

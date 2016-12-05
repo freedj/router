@@ -5,15 +5,15 @@ O1602 (JTF Trim To thickness);
 (removes full thickness in one pass using a .500 end mill)
 
 (Define Rear left corner);
-#1 = 0.0 (X);
+#1 = -0.25 (X);
 #2 = 0.0 (Y);
 
 (Define front right corner);
-#3 = 3.0 (X);
+#3 = 3.25 (X);
 #4 = -2.0 (Y);
 
 (Define cut depth)
-#5 = 0.0 (Z);
+#5 = -0.125 (Z);
 
 (Define cut parameters)
 #6 = 0.1 (stepover);
@@ -35,17 +35,17 @@ G43 H1;
 
 M3 S#7 (Start spindle);
 G0 X#3 Y#9 M8 (go to starting xy, start coolant);
-G0 Z#5+1.0 (get close in z);
+G0 Z[#5+1.0] (get close in z);
 G1 Z#5 F#8 (Feed to to cut depth);
 
 N10 (Start main program loop);
 G1 X#1;
 G0 X#3;
-#9 = #9 - #6;
+#9 = #9 + #6;
 G1 Y#9;
-if [#9 GT #2]  GOTO10;
+if [#9 LT #2]  GOTO10;
 
-G0 Z#5 + 1.0 M9;
+G0 Z[#5 + 1.0] M9;
 M5;
 G53 G49 Z0;
 G53 Y0;

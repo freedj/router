@@ -1,0 +1,74 @@
+%
+O1612 (JTF Belt holder profile);
+(use out put of 1611);
+(position stock with 2.25 sticking out the x+ side of the vise)
+(be sure to make a matched set)
+
+(T1 .500 end mill)
+G17 G20 G40 G80 G90;
+G55;
+
+T1 M6;
+G43 H1;
+
+M3 S5000 (f80.64)
+
+G0 X4.25 Y0.5 M8;
+G1 Z-0.8 F80.64;
+G1 Y-1.5;
+G0 Y0.25;
+G0 X4.136;
+G1 Y-1.5;
+G0 Z1.0;
+
+G0 X1.95 Y0.6 M8;
+G0 Z1.0;
+M97 P500;
+
+G0 Z1.0;
+G0 X1.95 Y0.6;
+G1 Z-0.1;
+M97 P500;
+
+G0 Z1.0;
+G0 X1.95 Y0.6;
+G1 Z-0.2;
+M97 P500;
+
+G0 Z1.0;
+G0 X1.95 Y0.6;
+G1 Z-0.3;
+M97 P500;
+G0 Z1.0;
+
+G0 Z1.0 M9;
+G53 G49 Z0;
+G53 Y0;
+
+
+M30;
+
+
+
+N500 (profile end);
+G0 X1.95 Y0.6;
+G41 Y0.0 D1;
+
+G1 X2.0 F80.64;
+G1 X3.1 Y-0.481;
+G1 X3.761;
+G2 X3.886 Y-0.606 J-0.125;
+G1 Y-0.875;
+G2 X3.761 Y-1.0 I-0.125;
+G1 X3.5;
+
+
+
+G40 Y-1.6;
+M99;
+
+
+
+
+
+%

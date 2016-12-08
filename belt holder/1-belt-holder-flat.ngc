@@ -1,0 +1,173 @@
+%
+O1610 (JTF Belt Holder face);
+
+(use 1x4.500x0.25 stock)
+(leave .500 stickout on x- side of vise)
+(set x0 slightly inside the part for cleanup)
+
+(T1 .500 end mill)
+(T2 Drill mill)
+(T3 0.125 end mill)
+
+(T5 .1495 drill)
+(T6 8-32 tap)
+
+G17 G20 G40 G80 G90;
+G55;
+
+T1 M6;
+G43 H1;
+M3 S5000;
+
+(trim end)
+G0 X-0.5 Y0.5 M8;
+G0 Z1.0;
+G1 Z-0.8 F80.64;
+G1 Y-1.3;
+G0 Y0.3;
+G0 X-0.25;
+G1 Y-1.3;
+G0 Z1.0 M9;
+G53 G49 Z0;
+
+
+(spot holes and chamfer mill the belt gripper)
+T2 M6;
+G43 H2;
+M3 S4584;
+G0 X0.25 Y-0.25 M8;
+G0 Z0.5;
+
+G73 Z-0.089 R0.1 Q0.075 F13.75 L0;
+M97 P500;
+G80;
+G0 Z1.0;
+
+(mill belt gripper)
+G0 X0.4 Y0.1;
+G0 Z-0.039;
+M3 S7162; (F14.324);
+G1 Y-1.1;
+G0 X1.1;
+G1 Y0.1;
+
+G1 Y0.0;
+G1 X0.4;
+
+G1 Y-0.039;
+G1 X1.1;
+
+G1 Y-0.118;
+G1 X0.4;
+
+G1 Y-0.197;
+G1 X1.1;
+
+G1 Y-0.276;
+G1 X0.4;
+
+G1 Y-0.355;
+G1 X1.1;
+
+G1 Y-0.434;
+G1 X0.4;
+
+G1 Y-0.513;
+G1 X1.1;
+
+G1 Y-0.592;
+G1 X0.4;
+
+G1 Y-0.671;
+G1 X1.1;
+
+G1 Y-0.75;
+G1 X0.4;
+
+G1 Y-0.829;
+G1 X1.1;
+
+G1 Y-0.908;
+G1 X0.4;
+
+G1 Y-0.987;
+G1 X1.1;
+
+G0 Z1.0 M9;
+M5;
+G53 G49 Z0;
+
+
+(through drill)
+T5 M6;
+G43 H5;
+
+M3 S7665;
+G0 X0.25 Y-0.25 M8;
+G0 Z0.5;
+G1 Z0.1 F22.995;
+
+G73 Z-0.4 R0.1 F22.995 Q0.075 L0;
+M97 P500;
+G80;
+G0 Z1.0 M9;
+M5;
+G53 G49 Z0;
+
+(tap holes)
+T6 M6;
+G43 H6;
+S320 M42;
+M3;
+
+G0 X0.25 Y-0.25 M8;
+G0 Z0.1;
+
+G84 Z-0.35 R0.1 F10.0 L0;
+M97 P500;
+G80;
+G0 Z1.0 M9;
+M5;
+G53 G49 Z0;
+
+(enlarge holes);
+T3 M6;
+G43 H3;
+
+G0 X2.39 Y-0.5 M8;
+G0 Z0.1;
+G12 D3 F32.40 I0.074 K0.222 Q0.006 Z-0.15;
+G0 Z1.0;
+
+G0 X2.39 Y-0.5 M8;
+G0 Z0.1;
+G12 D3 F32.40 I0.074 K0.1285 Q0.009 Z-0.30;
+G0 Z1.0;
+
+G0 X3.39 Y-0.5 M8;
+G0 Z0.1;
+G12 D3 F32.40 I0.074 K0.222 Q0.006 Z-0.15;
+G0 Z1.0;
+
+G0 X3.39 Y-0.5 M8;
+G0 Z0.1;
+G12 D3 F32.40 I0.074 K0.1285 Q0.009 Z-0.30;
+G0 Z1.0 M9;
+
+G53 G49 Z0
+G53 Y0;
+M30;
+
+
+
+
+N500 (hole locations);
+X0.25 Y-0.25;
+X0.25 Y-0.75;
+X1.25 Y-0.25;
+X1.25 Y-0.75;
+
+X2.39 Y-0.5;
+X3.39 Y-0.5;
+M99;
+%

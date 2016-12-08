@@ -1,0 +1,114 @@
+%
+O1613 (JTF Gantry end - bottom holes)
+(use output of 1612)
+(bottom profile up, flat twards y+);
+(Z0 on top 
+
+(T1 .500 end mill)
+(T2 drillmill)
+(T3 .123 end mill)
+(T5 .1495 drill)
+(T6 8-32 tap)
+
+#1 = [-.675 +.25];
+(clear out bottom profile)
+G17 G20 G40 G80 G90;
+G55;
+
+T1 M6;
+G43 H1;
+M3 S5000;
+G0 X-1.0 Y0.0 M8;
+G0 Z1.0;
+
+G1 Z0.0 F76.5;
+G1 X7.5;
+G1 Y-0.5;
+G1 X-1.0;
+
+G0 X1.0 Y-0.15;
+G1 X1.6 Y-0.15 Z-0.55;
+G1 X5.31 Y-0.15;
+G1 X6.0 Y-0.15 Z0.0;
+
+G0 X1.0 Y0.0;
+G1 X1.6 Y0.0 Z-0.55;
+G1 X5.31 Y-0.15;
+G1 X6.0 Y0.0 Z0.0;
+G1 Z1.0 M9;
+G53 G49 Z0;
+
+(spot and countersink);
+T2 M6;
+G43 H2;
+
+M3 S4584;
+G0 X0.31 Y#1 M8;
+G0 Z0.1;
+
+G73 Z-0.166 R0.1 Q0.075 F13.75 L0;
+X0.31 Y#1;
+X6.69 Y#1;
+G80;
+
+G0 Z1.0;
+G0 X2.0 Y#1;
+G0 Z-0.45;
+G73 Z-0.61 R-0.45 Q0.075 F13.75 L0;
+M97 P500;
+G80;
+G0 Z1.0 M9;
+G53 G49 Z0;
+
+(drill holes)
+T5 M6;
+G43 H5;
+M3 S7665;
+G0 X0.31 Y#1 M8;
+G0 Z0.1;
+G73 Z-0.6 R0.1 Q0.075 F22.95 L0;
+
+X0.31 Y#1;
+X6.69 Y#1;
+G80
+G0 Z1.0;
+
+G0 X2.0 Y#1;
+G0 Z-0.45;
+G73 Z-1.2 R-0.45 Q0.075 F22.95 L0;
+M97 P500;
+G80;
+G0 Z1.0;
+G53 G49 Z0;
+
+(tap holes)
+T6 M6;
+G43 H6;
+
+S320 M42;
+M3;
+
+G0 X2.0 Y#1 M8;
+G0 Z-0.45;
+G84 Z-1.07 R-0.45 F10.0 L0;
+M97 P500;
+G80;
+G0 Z1.0 M9;
+G53 G49 Z0;
+G53 Y0;
+
+M30;
+
+
+
+N500 (threaded hole locations);
+X2.0 Y#1;
+X2.5 Y#1;
+X3.0 Y#1;
+X3.5 Y#1;
+X4.0 Y#1;
+X4.5 Y#1;
+X5.0 Y#1;
+M99;
+%
+

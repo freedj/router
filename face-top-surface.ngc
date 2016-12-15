@@ -9,16 +9,16 @@ O1602 (JTF Trim To thickness);
 #2 = 0.0 (Y);
 
 (Define front right corner);
-#3 = 3.25 (X);
-#4 = -2.0 (Y);
+#3 = 6.25 (X);
+#4 = -7.25 (Y);
 
 (Define cut depth)
-#5 = -0.125 (Z);
+#5 = -0.25 (Z);
 
 (Define cut parameters)
 #6 = 0.1 (stepover);
-#7 = 3600 (Spindle speed);
-#8 = 35.0 (feed);
+#7 = 4968 (Spindle speed);
+#8 = 95.0 (feed);
 
 (T1 .500 END MILL);
 

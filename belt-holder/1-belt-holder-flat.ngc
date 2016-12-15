@@ -133,6 +133,7 @@ G53 G49 Z0;
 (enlarge holes);
 T3 M6;
 G43 H3;
+M3 S9000;
 
 G0 X2.39 Y-0.5 M8;
 G0 Z0.1;

@@ -35,21 +35,35 @@ int error = 0;
 byte type = 0;
 
 int i = 0;
+int timer1_counter;
 
 int buttonrate = 127;
+int x_button_rate = 127;
+int y_button_rate = 127;
+
 int z_button_rate = 2048;
 long targetx = 0;
 long targety = 0;
 long targetz = 0;
 
+long xsteps = 0;
+
 long stepover = 64;
 long stepback = 12;
 byte serialDebug = false;
+bool steppersOn = false;
 long debugTime = millis();
 
-int xmax = 1000;
-int ymax = 1000;
-int zmax = 1000;
+int xmax = 800;
+int ymax = 800;
+int zmax = 800;
+
+bool xStepping = false;
+bool yStepping = false;
+bool zStepping = false;
+byte nextStep = 0;
+
+
 
 
 
@@ -59,9 +73,6 @@ AccelStepper stepper(AccelStepper::DRIVER, StepperXStep, StepperXDir); // Defaul
 AccelStepper stepper2(AccelStepper::DRIVER, StepperYStep, StepperYDir); // Defaults to AccelStepper::FULL4WIRE (4 pins) on 2, 3, 4, 5
 AccelStepper stepperz(AccelStepper::DRIVER, StepperZStep, StepperZDir); // Defaults to AccelStepper::FULL4WIRE (4 pins) on 2, 3, 4, 5
 
-
-
-
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(115200);
@@ -70,32 +81,81 @@ void setup() {
   lcd.begin(20, 4);
 
   pinMode(StepperEnable, OUTPUT);
+  pinMode(13, OUTPUT);
   digitalWrite(StepperEnable, HIGH);
 
-  stepper.setMaxSpeed(1000);
+/**
+ * setup interrupts
+ */
+  // initialize timer1 
+  noInterrupts();           // disable all interrupts
+  TCCR1A = 0;
+  TCCR1B = 0;
+
+  // Set timer1_counter to the correct value for our interrupt interval
+  //timer1_counter = 65500;   // preload timer 65536-16MHz/256/100Hz
+  //timer1_counter = 64286;   // preload timer 65536-16MHz/256/50Hz
+  //timer1_counter = 34286;   // preload timer 65536-16MHz/256/2Hz
+
+  //timer1_counter = 65390; // 400 steps /sec
+  timer1_counter = 65525;
+  TCNT1 = timer1_counter;   // preload timer
+  TCCR1B |= (1 << CS12);    // 256 prescaler 
+  TIMSK1 |= (1 << TOIE1);   // enable timer overflow interrupt
+
+
+
+  
+  interrupts();             // enable all interrupts
+
+/** 
+ *  end interrupt
+ */
+
+
+  stepper.setMaxSpeed(xmax);
   stepper.setAcceleration(3000);
-  stepper.setSpeed(1000);
+  stepper.setSpeed(xmax);
 
 
-  stepper2.setMaxSpeed(1000);
+  stepper2.setMaxSpeed(ymax);
   stepper2.setAcceleration(1500);
-  stepper2.setSpeed(1000);
+  stepper2.setSpeed(ymax);
 
 
-  stepperz.setMaxSpeed(4000);
+  stepperz.setMaxSpeed(zmax);
   stepperz.setAcceleration(8000);
-  stepperz.setSpeed(1000);
+  stepperz.setSpeed(zmax);
 
   error = ps2x.config_gamepad(5, 4, 3, 2, true, true); //setup pins and settings:  GamePad(clock, command, attention, data, Pressures?, Rumble?) check for error
 
   currentPos();
 }
 
+
+/**
+    set the state of the stepper flag
+*/
+void stepperState (bool state) {
+  if (state == steppersOn) return;
+
+  digitalWrite (StepperEnable, state);
+  digitalWrite(13, state);
+  steppersOn = state;
+  /*
+  if (steppersOn) {
+    interrupts();
+   } else {
+    noInterrupts();
+   }
+   */
+}
+
 void moveToOrigin() {
   Serial.print ("Moving to origin... ");
 
   currentPos();
-  digitalWrite(StepperEnable, HIGH);
+  stepperState(true);
 
   stepper.runToNewPosition(0);
   currentPos();
@@ -108,7 +168,7 @@ void moveToOrigin() {
 
 void moveToTarget() {
   Serial.print("Moving To Target... ");
-  digitalWrite(StepperEnable, HIGH);
+  stepperState(true);
   stepper2.runToNewPosition(targety);
   stepper.runToNewPosition(targetx);
   Serial.println("At Target!");
@@ -150,7 +210,7 @@ void fast_surface () {
   long bigy = targety;
 
 
-  digitalWrite(StepperEnable, HIGH);
+  stepperState(true);
   while ((bigx > smallx) && (bigy > smally)) {
     curtime = (millis() - start) / 1000;
     Serial.print("bigx="); Serial.print(bigx);
@@ -195,10 +255,9 @@ void surface () {
   int curtime = 0;
   float perc = 0;
   int est = 0;
-  digitalWrite(StepperEnable, HIGH);
+  stepperState (true);
   long currenty = 0;
   moveToOrigin();
-  //delay(1000 * 5);
   showStatus(currenty, est);
 
   while (currenty < targety) {
@@ -228,8 +287,6 @@ void surface () {
   moveToOrigin();
   currentPos();
   Serial.println("Surface Complete!");
-  digitalWrite(StepperEnable, LOW);
-
 
 }
 
@@ -246,9 +303,8 @@ void currentPos () {
   lcd.print(stepsToInch(stepper.currentPosition()));
   lcd.setCursor(15, line);
   lcd.print(stepsToInch(stepper2.currentPosition()));
-
   if (serialDebug) {
-
+    
     Serial.print("xloc:");
     Serial.print(stepper.targetPosition());
     Serial.print(", current: ");
@@ -262,7 +318,13 @@ void currentPos () {
     Serial.print(", current: ");
     Serial.print(stepperz.currentPosition());
     Serial.print(", update time: ");
-    Serial.println(millis() - debugTime);
+    Serial.print(millis() - debugTime);
+    Serial.print (",Xsteps since last: ");
+    Serial.print (stepper.currentPosition() - xsteps);
+    Serial.print (", X/Sec: ");
+    Serial.println ((stepper.currentPosition() - xsteps) * (1000 / (millis() - debugTime)));
+    xsteps = stepper.currentPosition();
+
     debugTime = millis();
 
   }
@@ -322,12 +384,12 @@ long jog_stop (long current_step, long stop_step, int increment) {
 
 void jogMode () {
   Serial.println("Entering Jog Mode");
-  digitalWrite(StepperEnable, true);
+  stepperState(true);
   delay(500);
 
-  int jog_rate_x = 30;
-  int jog_rate_y = 30;
-  int jog_rate_z = 300;
+  int jog_rate_x = xmax/16;
+  int jog_rate_y = ymax/16;
+  int jog_rate_z = zmax/16;
 
   int a = 0;
   do {
@@ -335,11 +397,11 @@ void jogMode () {
       ps2x.read_gamepad(false, 0);
       if (ps2x.Button(PSB_PAD_LEFT)) {
         stepper.setMaxSpeed(get_jog_rate(jog_rate_x));
-        stepper.moveTo(stepper.currentPosition() + 10000);
+        stepper.moveTo(stepper.currentPosition() - 10000);
       }
       else if (ps2x.Button(PSB_PAD_RIGHT)) {
         stepper.setMaxSpeed(get_jog_rate(jog_rate_x));
-        stepper.moveTo(stepper.currentPosition() - 10000);
+        stepper.moveTo(stepper.currentPosition() + 10000);
       }
       else {
         stepper.stop();
@@ -373,35 +435,54 @@ void jogMode () {
 
       }
     }
-    if (stepper.distanceToGo()) stepper.run();
-    if (stepper2.distanceToGo()) stepper2.run();
-    if (stepperz.distanceToGo()) stepperz.run();
-
+    //runSteps();
 
   } while (!ps2x.Button(PSB_CIRCLE));
   stepper.stop(); stepper.setMaxSpeed(xmax);
   stepper2.stop(); stepper2.setMaxSpeed(ymax);
   stepperz.stop(); stepperz.setMaxSpeed(zmax);
-  digitalWrite(StepperEnable, false);
   Serial.println ("Exiting Jog Mode");
   delay(500);
 }
 
+
+ISR(TIMER1_OVF_vect)        // interrupt service routine 
+{
+  TCNT1 = timer1_counter;
+  interrupts();
+  runSteps();
+}
+
+/**
+ * run stepper motors
+ */
+void runSteps () {
+  if (!zStepping && stepperz.distanceToGo() && (nextStep == 0)) {
+    zStepping = true;
+    stepperz.run();
+    zStepping = false;
+  }
+  if (!yStepping && stepper2.distanceToGo() && (nextStep == 1)) {
+    yStepping = true;
+    stepper2.run();
+    yStepping = false;
+  }
+  if (!xStepping && stepper.distanceToGo() && (nextStep == 2)) {
+    xStepping = true;
+    stepper.run();
+    xStepping = false;
+  }
+  nextStep++;
+  if (nextStep > 2) nextStep = 0;
+}
+
 void loop() {
   // put your main code here, to run repeatedly:
-
-  if (stepperz.distanceToGo()) {
-    stepperz.run();
-  }
-  if (stepper2.distanceToGo()) {
-    stepper2.run();
-  }
-  if (stepper.distanceToGo()) {
-    stepper.run();
-  }
-
-  if (i % 1000 == 0) {
-    if (digitalRead(StepperEnable) && serialDebug) {
+  
+//  runSteps();
+  
+  if (i % 5000 == 0) {
+    if (steppersOn && serialDebug) {
       currentPos();
     }
     i = 0;
@@ -421,32 +502,38 @@ void loop() {
     }
 
     if (ps2x.Button(PSB_PAD_UP)) {
-      digitalWrite(StepperEnable, HIGH);
-      stepper2.moveTo(stepper2.targetPosition() - buttonrate);
+      stepper2.moveTo(stepper2.targetPosition() + y_button_rate);
+      if (stepper2.targetPosition() > stepper2.currentPosition() + 500) stepper2.moveTo(stepper2.targetPosition() + 500);
     }
+    if (ps2x.Button(PSB_PAD_DOWN)) {
+      stepper2.moveTo(stepper2.targetPosition() - y_button_rate);
+      if (stepper2.targetPosition() < stepper2.currentPosition() - 500) stepper2.moveTo(stepper2.targetPosition() - 500);
+    }
+
+    
     if (ps2x.Button(PSB_PAD_RIGHT)) {
-      digitalWrite(StepperEnable, HIGH);
-      stepper.moveTo(stepper.targetPosition() - buttonrate);
+      stepper.moveTo(stepper.targetPosition() + x_button_rate);
+            if (stepper.targetPosition() > stepper.currentPosition() + 500) stepper.moveTo(stepper.targetPosition() + 500);
+
     }
 
     if (ps2x.Button(PSB_PAD_LEFT)) {
-      digitalWrite(StepperEnable, HIGH);
-      stepper.moveTo(stepper.targetPosition() + buttonrate);
+      stepper.moveTo(stepper.targetPosition() - x_button_rate);
+      if (stepper.targetPosition() < stepper.currentPosition() + 500) stepper.moveTo(stepper.targetPosition() - 500);
+
     }
 
-    if (ps2x.Button(PSB_PAD_DOWN)) {
-      digitalWrite(StepperEnable, HIGH);
-      stepper2.moveTo(stepper2.targetPosition() + buttonrate);
-    }
 
     if (ps2x.Button(PSB_TRIANGLE)) {
-      digitalWrite(StepperEnable, HIGH);
       stepperz.moveTo(stepperz.targetPosition() + z_button_rate);
+      if (stepperz.targetPosition() > stepperz.currentPosition() + 500) stepperz.moveTo(stepperz.targetPosition() + 500);
+
     }
 
     if (ps2x.Button(PSB_CROSS)) {
-      digitalWrite(StepperEnable, HIGH);
       stepperz.moveTo(stepperz.targetPosition() - z_button_rate);
+      if (stepperz.targetPosition() < stepperz.currentPosition() + 500) stepperz.moveTo(stepperz.targetPosition() - 500);
+
     }
 
     if (ps2x.Button(PSB_CIRCLE)) {
@@ -500,22 +587,23 @@ void loop() {
       }
     }
 
-
     if (!stepper.distanceToGo() && !stepper2.distanceToGo() && !stepperz.distanceToGo()) {
-      if (digitalRead(StepperEnable)) {
+      if (steppersOn) {
         Serial.print ("Steppers Disabled...");
         currentPos();
-        digitalWrite(StepperEnable, LOW);
+        stepperState(false);
       }
     }
     else {
-      if (!digitalRead(StepperEnable)) {
+      if (!steppersOn) {
         Serial.println ("Steppers Enabled!");
-        digitalWrite(StepperEnable, HIGH);
+        stepperState(true);
 
       }
     }
+
   }
+
   i++;
 
 

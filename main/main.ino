@@ -373,14 +373,6 @@ int get_jog_rate (int rate) {
   return rate;
 }
 
-long jog_stop (long current_step, long stop_step, int increment) {
-  int increments = stop_step / increment;
-  if ((current_step < stop_step) && (stop_step % increment != 0)) {
-    increments++;
-  }
-
-  return increment * increments;
-}
 
 void jogMode () {
   Serial.println("Entering Jog Mode");
@@ -405,7 +397,6 @@ void jogMode () {
       }
       else {
         stepper.stop();
-        stepper.moveTo(jog_stop(stepper.currentPosition(), stepper.targetPosition(), 16));
       }
 
       if (ps2x.Button(PSB_PAD_UP)) {
@@ -418,7 +409,6 @@ void jogMode () {
       }
       else {
         stepper2.stop();
-        stepper2.moveTo(jog_stop(stepper2.currentPosition(), stepper2.targetPosition(), 16));
       }
 
       if (ps2x.Button(PSB_TRIANGLE)) {
@@ -431,11 +421,9 @@ void jogMode () {
       }
       else {
         stepperz.stop();
-        stepperz.moveTo(jog_stop(stepperz.currentPosition(), stepperz.targetPosition(), 205));
 
       }
     }
-    //runSteps();
 
   } while (!ps2x.Button(PSB_CIRCLE));
   stepper.stop(); stepper.setMaxSpeed(xmax);

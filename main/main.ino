@@ -1,4 +1,5 @@
 #include <PS2X_lib.h>
+#include <DueTimer.h>
 /*-----( Import needed libraries )-----*/
 #include <Wire.h>  // Comes with Arduino IDE
 // Get the LCD I2C Library here:
@@ -17,6 +18,12 @@
 
 #define StepperZStep 11
 #define StepperZDir 10
+
+
+#define PS2_DAT        53  //14    
+#define PS2_CMD        51  //15
+#define PS2_SEL        49  //16
+#define PS2_CLK        47  //17
 
 
 /*-----( Declare Constants )-----*/
@@ -54,9 +61,9 @@ byte serialDebug = false;
 bool steppersOn = false;
 long debugTime = millis();
 
-int xmax = 800;
-int ymax = 800;
-int zmax = 800;
+int xmax = 4800;
+int ymax = 4800;
+int zmax = 4800;
 
 bool xStepping = false;
 bool yStepping = false;
@@ -84,34 +91,8 @@ void setup() {
   pinMode(13, OUTPUT);
   digitalWrite(StepperEnable, HIGH);
 
-/**
- * setup interrupts
- */
-  // initialize timer1 
-  noInterrupts();           // disable all interrupts
-  TCCR1A = 0;
-  TCCR1B = 0;
-
-  // Set timer1_counter to the correct value for our interrupt interval
-  //timer1_counter = 65500;   // preload timer 65536-16MHz/256/100Hz
-  //timer1_counter = 64286;   // preload timer 65536-16MHz/256/50Hz
-  //timer1_counter = 34286;   // preload timer 65536-16MHz/256/2Hz
-
-  //timer1_counter = 65390; // 400 steps /sec
-  timer1_counter = 65525;
-  TCNT1 = timer1_counter;   // preload timer
-  TCCR1B |= (1 << CS12);    // 256 prescaler 
-  TIMSK1 |= (1 << TOIE1);   // enable timer overflow interrupt
-
-
-
-  
-  interrupts();             // enable all interrupts
-
-/** 
- *  end interrupt
- */
-
+  Timer3.attachInterrupt(runSteps);
+  Timer3.start(10);
 
   stepper.setMaxSpeed(xmax);
   stepper.setAcceleration(3000);
@@ -127,8 +108,8 @@ void setup() {
   stepperz.setAcceleration(8000);
   stepperz.setSpeed(zmax);
 
-  error = ps2x.config_gamepad(5, 4, 3, 2, true, true); //setup pins and settings:  GamePad(clock, command, attention, data, Pressures?, Rumble?) check for error
-
+  //error = ps2x.config_gamepad(5, 4, 3, 2, true, true); //setup pins and settings:  GamePad(clock, command, attention, data, Pressures?, Rumble?) check for error
+ps2x.config_gamepad(true,false);
   currentPos();
 }
 
@@ -433,13 +414,6 @@ void jogMode () {
   delay(500);
 }
 
-
-ISR(TIMER1_OVF_vect)        // interrupt service routine 
-{
-  TCNT1 = timer1_counter;
-  interrupts();
-  runSteps();
-}
 
 /**
  * run stepper motors

@@ -18,6 +18,14 @@
 #define StepperZStep 11
 #define StepperZDir 10
 
+#define xy_button_rate  127
+#define z_button_rate 2048
+#define xmax 800
+#define ymax 800
+#define zmax 800
+
+#define stepover 32
+
 
 /*-----( Declare Constants )-----*/
 /*-----( Declare objects )-----*/
@@ -37,31 +45,22 @@ byte type = 0;
 int i = 0;
 int timer1_counter;
 
-int buttonrate = 127;
-int x_button_rate = 127;
-int y_button_rate = 127;
-
-int z_button_rate = 2048;
 long targetx = 0;
 long targety = 0;
 long targetz = 0;
 
 long xsteps = 0;
 
-long stepover = 64;
-long stepback = 12;
 byte serialDebug = false;
 bool steppersOn = false;
 long debugTime = millis();
-
-int xmax = 800;
-int ymax = 800;
-int zmax = 800;
 
 bool xStepping = false;
 bool yStepping = false;
 bool zStepping = false;
 byte nextStep = 0;
+
+bool mdi = false;
 
 
 
@@ -257,9 +256,10 @@ void surface () {
   int est = 0;
   stepperState (true);
   long currenty = 0;
+  long currentx = 0;
   moveToOrigin();
-  showStatus(currenty, est);
-
+/*
+  showStatus(currenty,targety, est);
   while (currenty < targety) {
     currenty = currenty + stepover;
     if (currenty > targety) currenty = targety;
@@ -278,10 +278,30 @@ void surface () {
     Serial.print(", Estimated time: ");
     est = (float)curtime / (float)perc;
     Serial.println(est);
-    showStatus(currenty, est - curtime);
+    showStatus(currenty, targety, est - curtime);
+  }
+*/
 
-
-
+  showStatus(currentx, targetx, est);
+  while (currentx < targetx) {
+    currentx = currentx + stepover;
+    if (currentx > targetx) currentx = targetx;
+    Serial.print ("Cutting on x: ");
+    Serial.print (currentx);
+    stepper2.runToNewPosition(currentx);
+    stepper.runToNewPosition(targety);
+    stepper2.runToNewPosition(currentx - (stepover * .25));
+    stepper.runToNewPosition(0);
+    perc = ((float)currentx / (float)targetx);
+    Serial.print("  Percent: ");
+    Serial.print(perc);
+    curtime = (millis() - start) / 1000;
+    Serial.print(", Elapsed time: ");
+    Serial.print(curtime);
+    Serial.print(", Estimated time: ");
+    est = (float)curtime / (float)perc;
+    Serial.println(est);
+    showStatus(currentx, targetx, est - curtime);
   }
 
   moveToOrigin();
@@ -291,7 +311,10 @@ void surface () {
 }
 
 float stepsToInch (long steps) {
-  return steps / 127;
+  int stepsPerRev = 200;
+  float pulleyDiameter = 0.5;
+  float stepsPerInch = 1 * (pulleyDiameter * 3.1415) / stepsPerRev;
+  return steps / stepsPerInch;
 }
 
 void currentPos () {
@@ -330,17 +353,17 @@ void currentPos () {
   }
 }
 
-void showStatus (long currenty, int est) {
+void showStatus (long current, long target, int est) {
   int min = est / 60;
   int sec = est % 60;
   int line = 3;
   lcd.setCursor(0, line);
   lcd.print ("@          %        ");
   lcd.setCursor(1, line);
-  lcd.print(stepsToInch(stepper2.currentPosition()));
+  lcd.print(stepsToInch(current));
 
   lcd.setCursor(9, line);
-  int perc = (float)currenty / (float)targety * 100;
+  int perc = (float)current / (float)target * 100;
   lcd.print(perc);
   lcd.setCursor(15, line);
   lcd.print(min);
@@ -490,38 +513,29 @@ void loop() {
     }
 
     if (ps2x.Button(PSB_PAD_UP)) {
-      stepper2.moveTo(stepper2.targetPosition() + y_button_rate);
-      if (stepper2.targetPosition() > stepper2.currentPosition() + 500) stepper2.moveTo(stepper2.targetPosition() + 500);
-    }
-    if (ps2x.Button(PSB_PAD_DOWN)) {
-      stepper2.moveTo(stepper2.targetPosition() - y_button_rate);
-      if (stepper2.targetPosition() < stepper2.currentPosition() - 500) stepper2.moveTo(stepper2.targetPosition() - 500);
+      stepper2.moveTo(stepper2.currentPosition() + xy_button_rate);
+    } else if (ps2x.Button(PSB_PAD_DOWN)) {
+      stepper2.moveTo(stepper2.currentPosition() - xy_button_rate);
+    } else if (stepper2.isRunning() && !mdi) {
+      stepper2.stop();
     }
 
     
     if (ps2x.Button(PSB_PAD_RIGHT)) {
-      stepper.moveTo(stepper.targetPosition() + x_button_rate);
-            if (stepper.targetPosition() > stepper.currentPosition() + 500) stepper.moveTo(stepper.targetPosition() + 500);
-
-    }
-
-    if (ps2x.Button(PSB_PAD_LEFT)) {
-      stepper.moveTo(stepper.targetPosition() - x_button_rate);
-      if (stepper.targetPosition() < stepper.currentPosition() + 500) stepper.moveTo(stepper.targetPosition() - 500);
-
+      stepper.moveTo(stepper.currentPosition() + xy_button_rate);
+    } else if (ps2x.Button(PSB_PAD_LEFT)) {
+      stepper.moveTo(stepper.currentPosition() - xy_button_rate);
+    } else if (stepper.isRunning() && !mdi) {
+      stepper.stop();
     }
 
 
     if (ps2x.Button(PSB_TRIANGLE)) {
-      stepperz.moveTo(stepperz.targetPosition() + z_button_rate);
-      if (stepperz.targetPosition() > stepperz.currentPosition() + 500) stepperz.moveTo(stepperz.targetPosition() + 500);
-
-    }
-
-    if (ps2x.Button(PSB_CROSS)) {
-      stepperz.moveTo(stepperz.targetPosition() - z_button_rate);
-      if (stepperz.targetPosition() < stepperz.currentPosition() + 500) stepperz.moveTo(stepperz.targetPosition() - 500);
-
+      stepperz.moveTo(stepperz.currentPosition() + z_button_rate);
+    } else if (ps2x.Button(PSB_CROSS)) {
+      stepperz.moveTo(stepperz.currentPosition() - z_button_rate);
+    } else if (stepperz.isRunning() && !mdi) {
+      stepperz.stop();
     }
 
     if (ps2x.Button(PSB_CIRCLE)) {
@@ -572,6 +586,7 @@ void loop() {
           case 'z': stepperz.moveTo(steps); break;
           case 'Z': stepperz.moveTo(steps * 2048); break;
         }
+        mdi = true;
       }
     }
 
@@ -580,6 +595,7 @@ void loop() {
         Serial.print ("Steppers Disabled...");
         currentPos();
         stepperState(false);
+        mdi = false;
       }
     }
     else {
